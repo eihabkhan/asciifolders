@@ -1,0 +1,25 @@
+{
+  "name": "asciifolders",
+  "version": "0.0.1-beta.1",
+  "description": "Generate ASCII directory trees from any folder on your machine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eihabkhan/asciifolders.git"
+  },
+  "keywords": [
+    "ascii",
+    "cli",
+    "folders",
+    "directories"
+  ],
+  "author": "Eihab Khan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eihabkhan/asciifolders/issues"
+  },
+  "homepage": "https://github.com/eihabkhan/asciifolders#readme"
+}
