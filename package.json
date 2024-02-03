@@ -10,7 +10,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "esbuild --bundle src/bin.ts --platform=node --outfile=dist/bin.js --packages=external --format=esm",
+    "build": "bun build src/bin.ts --platform=node --outfile=dist/bin.js --format=esm",
     "dev": "tsc -w"
   },
   "repository": {
@@ -30,11 +30,10 @@
   },
   "homepage": "https://github.com/eihabkhan/asciifolders#readme",
   "devDependencies": {
-    "@types/node": "^20.11.10",
-    "esbuild": "^0.20.0",
+    "@types/bun": "^1.0.4",
+    "bumpp": "^9.3.0",
     "npm-run-all": "^4.1.5",
-    "typescript": "^5.3.3",
-    "bumpp": "^9.3.0"
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "@inquirer/prompts": "^3.3.2",
