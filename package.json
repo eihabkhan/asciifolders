@@ -8,9 +8,13 @@
     "node": "^20.9.0",
     "pnpm": "^8.10.0"
   },
+  "type": "module",
+  "bin": {
+    "asciifolders": "./dist/bin.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "bun build src/bin.ts --platform=node --outfile=dist/bin.js --format=esm",
+    "build": "bun build --target=node src/bin.ts --platform=node --outfile=dist/bin.js --format=esm",
     "dev": "tsc -w"
   },
   "repository": {
