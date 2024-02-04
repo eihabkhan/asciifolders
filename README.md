@@ -12,34 +12,36 @@
 Generate an ASCII directory tree from any folder on your machine
 
 ## Usage
+
 #### Using npm
+
 ```shell
 npx asciifolders
 ```
+
 #### Using pnpx
+
 ```shell
 pnpx asciifolders
 ```
+
 #### Using bunx
+
 ```shell
 bunx asciifolders
 ```
 
-## Options
-| Option            | Description                                          | Default Value |
-|-------------------|------------------------------------------------------|---------------|
-| `-a, --all`       | Generate tree for all files/dirs, including hidden ones. | `false`         |
-| `-d, --depth <depth>` | Depth of dirs to be generated                      | `5`       |
-| `-s, --style <style>` | Style of generated tree ("arrows" or "pipes")      | `arrows`       |
+## Documentation
 
+Check the [documentation](https://asciifolders.com/docs) to get you started!
 
 ## Author
 
 **Eihab Khan**
 
-* Porfolio: [eihabkhan.com](https://eihabkhan.com)
-* GitHub: [github/eihabkhan](https://github.com/eihabkhan)
-* X: [x/eihab_khan](https://x.com/eihab_khan)
+- Porfolio: [eihabkhan.com](https://eihabkhan.com)
+- GitHub: [github/eihabkhan](https://github.com/eihabkhan)
+- X: [x/eihab_khan](https://x.com/eihab_khan)
 
 ## License
 
