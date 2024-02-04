@@ -15,7 +15,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "bun build --target=node src/bin.ts --platform=node --outfile=dist/bin.js --format=esm",
-    "dev": "tsc -w"
+    "dev": "tsc -w",
+    "release": "pnpm publish --access public"
   },
   "repository": {
     "type": "git",
