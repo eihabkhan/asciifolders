@@ -4,6 +4,9 @@ import { generateAsciiTree } from '@/ascii';
 import { promptToCopyToClipboard } from '@/clipboard';
 import clipboardy from 'clipboardy';
 import { currentDirectoryName } from '@/directory';
+import { log } from '@/log';
+import ora from 'ora';
+import { brandFiglet } from '@/figlet';
 
 const program = new Command();
 
@@ -24,22 +27,37 @@ program
     'Style of generated tree ("arrows" | "pipes")',
     STYLE
   )
+  .addHelpText('beforeAll', `${await brandFiglet()}`)
+  .addHelpText(
+    'afterAll',
+    `
+
+Links:
+  - Website: https://asciifolders.com
+  - GitHub:  https://github.com/eihabkhan/asciifolders
+
+© ${new Date().getFullYear()}. By Eihab Khan <https://www.eihabkhan.com/>`
+  )
   .action(async (options: Options) => {
     try {
-      console.log('Generating ASCII Tree 🌳');
-      const asciiTree = await generateAsciiTree(options);
+      // log.info('Generating ASCII Tree 🌳');
+      const spinner = ora('Generating ASCII Tree 🌳');
+      spinner.start();
 
+      const asciiTree = await generateAsciiTree(options);
       // Print Tree
-      console.log(currentDirectoryName);
-      console.log(asciiTree);
+      log.normal(currentDirectoryName);
+      log.normal(asciiTree);
+
+      spinner.succeed('ASCII Tree generated');
 
       const answer = await promptToCopyToClipboard();
       if (answer.toLowerCase() === 'yes') {
         await clipboardy.write(asciiTree);
-        console.log('ASCII Tree copied to clipboard successfully.');
+        log.success('ASCII Tree copied to clipboard.');
       }
     } catch (error) {
-      console.error('An error occurred:', error);
+      log.error(`An error occurred:, ${error}`);
     }
   });
 

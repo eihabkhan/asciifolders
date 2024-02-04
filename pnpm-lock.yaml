@@ -8,12 +8,21 @@ dependencies:
   '@inquirer/prompts':
     specifier: ^3.3.2
     version: 3.3.2
+  '@types/figlet':
+    specifier: ^1.5.8
+    version: 1.5.8
+  chalk:
+    specifier: ^5.3.0
+    version: 5.3.0
   clipboardy:
     specifier: ^4.0.0
     version: 4.0.0
   commander:
     specifier: ^11.1.0
     version: 11.1.0
+  figlet:
+    specifier: ^1.7.0
+    version: 1.7.0
   log-symbols:
     specifier: ^6.0.0
     version: 6.0.0
@@ -195,6 +204,10 @@ packages:
     dependencies:
       bun-types: 1.0.25
     dev: true
+
+  /@types/figlet@1.5.8:
+    resolution: {integrity: sha512-G22AUvy4Tl95XLE7jmUM8s8mKcoz+Hr+Xm9W90gJsppJq9f9tHvOGkrpn4gRX0q/cLtBdNkWtWCKDg2UDZoZvQ==}
+    dev: false
 
   /@types/mute-stream@0.0.4:
     resolution: {integrity: sha512-CPM9nzrCPPJHQNA9keH9CVkVI+WR5kMa+7XEs5jcGQ0VoAGnLv242w8lIVgwAEfmE4oufJRaTc9PNLQl0ioAow==}
@@ -652,6 +665,12 @@ packages:
     dependencies:
       reusify: 1.0.4
     dev: true
+
+  /figlet@1.7.0:
+    resolution: {integrity: sha512-gO8l3wvqo0V7wEFLXPbkX83b7MVjRrk1oRLfYlZXol8nEpb/ON9pcKLI4qpBv5YtOTfrINtqb7b40iYY2FTWFg==}
+    engines: {node: '>= 0.4.0'}
+    hasBin: true
+    dev: false
 
   /figures@3.2.0:
     resolution: {integrity: sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==}
