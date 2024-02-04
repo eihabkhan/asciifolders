@@ -1,3 +1,4 @@
-const message: string = 'Hello World';
+#! /usr/bin/env node
+import { program } from '@/program';
 
-console.log(message);
+program.parse(process.argv);
