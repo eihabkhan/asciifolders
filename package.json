@@ -1,6 +1,6 @@
 {
   "name": "asciifolders",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generate ASCII directory trees from any folder on your machine",
   "main": "index.js",
   "packageManager": "pnpm@8.10.0",
