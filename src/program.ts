@@ -26,7 +26,6 @@ program
     'Style of generated tree ("arrows" | "pipes")',
     STYLE
   )
-  .addHelpText('beforeAll', `AsciiFolders`)
   .addHelpText(
     'afterAll',
     `
