@@ -39,7 +39,7 @@ async function parseDirectory(
 ): Promise<string> {
   let tree = '';
 
-  const items = await getDirectoryItems(dir);
+  const items = await getDirectoryItems(dir, options);
 
   for (let i = 0; i < items.length; i++) {
     const item = items[i]!;

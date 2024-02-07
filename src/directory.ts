@@ -24,8 +24,30 @@ export function isIgnoredDirectory(item: string): boolean {
   return IGNORE_DIRECTORIES.includes(item);
 }
 
-export async function getDirectoryItems(dir: string): Promise<string[]> {
+export async function getDirectoryItems(dir: string, options: Options): Promise<string[]> {
   const items = await fs.readdir(dir);
+
+
+  if (options.dirsFirst) {
+    const processed = await Promise.all(
+      items.map(async item => ({
+        name: item,
+        isDirectory: await isDirectory(item, dir),
+      }))
+    );
+
+    return processed
+    .sort((x, y) => {
+      if (x.isDirectory === y.isDirectory) {
+        return x.name.localeCompare(y.name);
+      }
+
+      return x.isDirectory ? -1 : 1;
+    }).map(i => i.name);
+  }
+
+
+
   // Sort items alphabetically
   // items.sort();
   return items;
