@@ -13,6 +13,7 @@ const program = new Command();
 const DEPTH = '5'; // string because Commander expects a string
 const STYLE: Style = 'arrows';
 const ALL = false;
+const DIRS_FIRST = false;
 
 program
   .option(
@@ -20,6 +21,7 @@ program
     'Generate tree for all files/dirs, including hidden ones.',
     ALL
   )
+  .option('-df, --dirs-first', 'List directories before files', DIRS_FIRST)
   .option('-d, --depth <depth>', 'Depth of dirs to be generated', DEPTH)
   .option(
     '-s, --style <style>',
