@@ -11,6 +11,10 @@
 
 Generate an ASCII directory tree from any folder on your machine
 
+## Prerequisites
+> [!Note]
+> AsciiFolders requires [Node](https://nodejs.org/en) 20.9.0 or later.
+
 ## Usage
 
 #### Using npm
