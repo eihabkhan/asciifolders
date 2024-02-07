@@ -6,7 +6,6 @@ import clipboardy from 'clipboardy';
 import { currentDirectoryName } from '@/directory';
 import { log } from '@/log';
 import ora from 'ora';
-import { brandFiglet } from '@/figlet';
 
 const program = new Command();
 
@@ -27,7 +26,6 @@ program
     'Style of generated tree ("arrows" | "pipes")',
     STYLE
   )
-  .addHelpText('beforeAll', `${await brandFiglet()}`)
   .addHelpText(
     'afterAll',
     `
