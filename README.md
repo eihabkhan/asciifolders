@@ -45,7 +45,7 @@ Check the [documentation](https://asciifolders.com/docs) to get you started!
 
 - Porfolio: [eihabkhan.com](https://eihabkhan.com)
 - GitHub: [github/eihabkhan](https://github.com/eihabkhan)
-- X: [x/eihab_khan](https://x.com/eihab_khan)
+- X: [x/itseihab](https://x.com/itseihab)
 
 ## License
 
