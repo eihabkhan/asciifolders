@@ -40,7 +40,6 @@ Links:
   )
   .action(async (options: Options) => {
     try {
-      // log.info('Generating ASCII Tree 🌳');
       const spinner = ora('Generating ASCII Tree 🌳');
       spinner.start();
 
