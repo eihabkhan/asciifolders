@@ -29,6 +29,7 @@ async function parseSubdirectory(
     prefix,
     { ...options, depth: newDepth.toString() } // Pass the decremented depth
   );
+
   return subTree;
 }
 
