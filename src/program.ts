@@ -56,7 +56,7 @@ Links:
 
       spinner.succeed('ASCII Tree generated');
 
-      if(options.autoCopy) {
+      if(options.copy) {
         await clipboardy.write(asciiTree);
         log.success('ASCII Tree automatically copied to clipboard.');
         return;
