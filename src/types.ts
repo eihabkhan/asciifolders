@@ -4,5 +4,6 @@ export interface Options {
   all: boolean;
   depth: string;
   style: Style;
-  dirsFirst: boolean
+  dirsFirst: boolean;
+  copy: boolean;
 }
