@@ -49,11 +49,11 @@ export async function getDirectoryItems(dir: string, options: Options): Promise<
 
 
   // Sort items alphabetically
-  // items.sort();
   return items;
 }
 
 export async function isDirectory(item: string, dir: string): Promise<boolean> {
   const stats = await fs.stat(path.join(dir, item));
+
   return stats.isDirectory();
 }

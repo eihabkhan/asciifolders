@@ -6,7 +6,7 @@
   "packageManager": "pnpm@8.10.0",
   "engines": {
     "node": "^20.9.0",
-    "pnpm": "^8.10.0"
+    "pnpm": "^9.0.0"
   },
   "type": "module",
   "bin": {

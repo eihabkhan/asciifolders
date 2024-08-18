@@ -14,6 +14,7 @@ const DEPTH = '5'; // string because Commander expects a string
 const STYLE: Style = 'arrows';
 const ALL = false;
 const DIRS_FIRST = false;
+const AUTO_COPY = false;
 
 program
   .option(
@@ -28,6 +29,11 @@ program
     'Style of generated tree ("arrows" | "pipes")',
     STYLE
   )
+  .option(
+    '-c, --copy',
+    'Automatically copy the generated tree to clipboard',
+    AUTO_COPY
+  )
   .addHelpText(
     'afterAll',
     `
@@ -40,7 +46,6 @@ Links:
   )
   .action(async (options: Options) => {
     try {
-      // log.info('Generating ASCII Tree 🌳');
       const spinner = ora('Generating ASCII Tree 🌳');
       spinner.start();
 
@@ -50,6 +55,13 @@ Links:
       log.normal(asciiTree);
 
       spinner.succeed('ASCII Tree generated');
+
+      if(options.copy) {
+        await clipboardy.write(asciiTree);
+        log.success('ASCII Tree automatically copied to clipboard.');
+
+        return;
+      }
 
       const answer = await promptToCopyToClipboard();
       if (answer.toLowerCase() === 'yes') {
