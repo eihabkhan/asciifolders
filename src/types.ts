@@ -5,5 +5,5 @@ export interface Options {
   depth: string;
   style: Style;
   dirsFirst: boolean;
-  autoCopy: boolean;
+  copy: boolean;
 }
