@@ -35,6 +35,17 @@ pnpx asciifolders
 bunx asciifolders
 ```
 
+## Contributions
+
+If you're a contributor you'd want to run the app locally on your machine to test your code, to do that make sure to:
+
+1. Clone the repo
+2. `cd` into the repo
+3. Add your modifications
+4. Run `npm run build` to build the package
+5. Run `npm link -g` to link the package to your global packages list
+6. Run `asciifolders` from anywhere to test
+
 ## Documentation
 
 Check the [documentation](https://asciifolders.com/docs) to get you started!
