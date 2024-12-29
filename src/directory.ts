@@ -46,8 +46,6 @@ export async function getDirectoryItems(dir: string, options: Options): Promise<
     }).map(i => i.name);
   }
 
-
-
   // Sort items alphabetically
   return items;
 }
