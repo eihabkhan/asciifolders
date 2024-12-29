@@ -60,5 +60,5 @@ Check the [documentation](https://asciifolders.com/docs) to get you started!
 
 ## License
 
-Copyright © 2024, [Eihab Khan](https://eihabkhan.com).
+Copyright © 2025, [Eihab Khan](https://eihabkhan.com).
 Released under the [MIT License](LICENSE).
