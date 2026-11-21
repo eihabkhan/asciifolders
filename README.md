@@ -42,7 +42,7 @@ my-cool-project
 
 ## Usage
 
-There's nothing to install. `cd` into the folder you want to map and run it with your package manager's runner:
+There's nothing to install. Run it with your package manager's runner, in the folder you want to map or with a path to it:
 
 | Package manager | Command             |
 | --------------- | ------------------- |
@@ -50,18 +50,28 @@ There's nothing to install. `cd` into the folder you want to map and run it with
 | pnpm            | `pnpx asciifolders` |
 | bun             | `bunx asciifolders` |
 
-AsciiFolders prints the tree, then asks whether to copy it to your clipboard. Pass `--copy` to skip the question and copy it right away.
+```shell
+npx asciifolders          # the current folder
+npx asciifolders src      # any other folder
+```
+
+AsciiFolders prints the tree, then asks whether to copy it to your clipboard. Pass `--copy` to copy it right away, or `--no-prompt` to skip the question.
 
 ## Options
 
-| Option                | Description                                                        | Default  |
-| --------------------- | ------------------------------------------------------------------ | -------- |
-| `-a, --all`           | Include hidden files and folders, the ones that start with a dot.  | `false`  |
-| `-d, --depth <depth>` | How many levels of folders to descend into. `0` prints only the top level. | `5`      |
-| `-s, --style <style>` | The connectors used to draw the tree: `arrows` or `pipes`.         | `arrows` |
-| `-df, --dirs-first`   | List directories before files at every level.                      | `false`  |
-| `-c, --copy`          | Copy the tree to your clipboard right away, without asking.        | `false`  |
-| `-h, --help`          | Print the list of options and exit.                                |          |
+| Option                   | Description                                                                 | Default  |
+| ------------------------ | --------------------------------------------------------------------------- | -------- |
+| `[dir]`                  | The folder to map.                                                          | `.`      |
+| `-a, --all`              | Include hidden files and folders, the ones that start with a dot.           | `false`  |
+| `-d, --depth <depth>`    | How many levels of folders to descend into. `0` prints only the top level.  | `5`      |
+| `-s, --style <style>`    | The connectors used to draw the tree: `arrows` or `pipes`.                  | `arrows` |
+| `-df, --dirs-first`      | List directories before files at every level.                               | `false`  |
+| `-i, --ignore <pattern>` | Skip files and folders matching a `.gitignore`-style pattern. Repeatable.   |          |
+| `--no-gitignore`         | Include files and folders listed in `.gitignore`.                           |          |
+| `-c, --copy`             | Copy the tree to your clipboard right away, without asking.                 | `false`  |
+| `--no-prompt`            | Don't ask to copy the tree.                                                 |          |
+| `-v, --version`          | Print the version and exit.                                                 |          |
+| `-h, --help`             | Print the list of options and exit.                                         |          |
 
 ## Examples
 
@@ -109,9 +119,34 @@ Everything, including dotfiles, with folders listed first:
 npx asciifolders --all --dirs-first
 ```
 
-## Ignored folders
+Two levels of `src`, without test files:
 
-Dependency and build folders are always skipped, even with `--all`: `node_modules`, `.git`, `dist`, `vendor`, `site-packages`, `gems` and `target`.
+```shell
+npx asciifolders src --depth 1 --ignore "*.test.ts"
+```
+
+## Ignored files
+
+- Anything your `.gitignore` files ignore, including ones in parent folders up to the repository root. Use `--no-gitignore` to list them anyway.
+- Dependency and build folders, always, even with `--all`: `node_modules`, `.git`, `dist`, `vendor`, `site-packages`, `gems` and `target`.
+- Anything matching an `--ignore` pattern.
+
+Entries are sorted by name, so the same folder always gives the same tree.
+
+## Scripts and AI agents
+
+Only the tree goes to stdout; the spinner, messages and errors go to stderr. When AsciiFolders isn't running in an interactive terminal it never asks a question, so it won't hang in scripts, CI or AI coding agents. Errors exit with code `1`.
+
+```shell
+npx asciifolders > tree.txt      # save it
+npx asciifolders | pbcopy        # or copy it on macOS
+```
+
+To let your coding agent use it, add a line like this to your `AGENTS.md` or `CLAUDE.md`:
+
+```markdown
+To see the project layout, run `npx asciifolders --depth 3`.
+```
 
 ## Try it in your browser
 
@@ -124,9 +159,9 @@ Contributions are welcome. Read the [contributing guidelines](CONTRIBUTING.md) f
 1. Clone the repo and `cd` into it
 2. Install dependencies with `pnpm install`
 3. Make your changes
-4. Run `pnpm build` to build the package (the build uses [Bun](https://bun.sh), so you'll need it installed)
+4. Run `pnpm test` to build the package and run the tests (the build uses [Bun](https://bun.sh), so you'll need it installed)
 5. Run `npm link` to make the `asciifolders` command available globally
-6. Run `asciifolders` in any folder to test it
+6. Run `asciifolders` in any folder to try it
 
 ## Author
 

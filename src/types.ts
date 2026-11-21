@@ -6,4 +6,9 @@ export interface Options {
   style: Style;
   dirsFirst: boolean;
   copy: boolean;
+  /** false with --no-prompt */
+  prompt: boolean;
+  /** false with --no-gitignore */
+  gitignore: boolean;
+  ignore: string[];
 }

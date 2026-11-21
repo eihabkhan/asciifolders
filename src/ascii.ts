@@ -1,79 +1,89 @@
 import path from 'path';
 import type { Options } from '@/types';
 import {
-  currentDirectory,
-  getDirectoryItems,
-  isDirectory,
-  isIgnoredDirectory,
-  shouldIgnoreItem,
+  IGNORE_DIRECTORIES,
+  createMatcher,
+  isIgnoredByRules,
+  readEntries,
+  readGitignore,
+  readParentGitignores,
+  sortEntries,
+  type Entry,
+  type Matcher,
 } from '@/directory';
 
-function getBranch(options: Options): string {
-  return options.style === 'arrows' ? '├── ' : '|--- ';
+export type TreeOptions = Pick<Options, 'all' | 'style' | 'dirsFirst' | 'gitignore' | 'ignore'> & {
+  depth: number;
+};
+
+function connectors(style: TreeOptions['style']) {
+  const arrows = style === 'arrows';
+
+  return {
+    branch: arrows ? '├── ' : '|--- ',
+    leaf: arrows ? '└── ' : '└--- ',
+    pipe: arrows ? '│   ' : '|   ',
+    space: '    ',
+  };
 }
 
-function getLeaf(options: Options): string {
-  return options.style === 'arrows' ? '└── ' : '└--- ';
+function isVisible(dir: string, entry: Entry, matchers: Matcher[], options: TreeOptions): boolean {
+  if (!options.all && entry.name.startsWith('.')) return false;
+  if (IGNORE_DIRECTORIES.includes(entry.name)) return false;
+
+  return !isIgnoredByRules(matchers, path.join(dir, entry.name), entry.isDirectory);
 }
 
-async function parseSubdirectory(
+async function renderDirectory(
   dir: string,
-  item: string,
   prefix: string,
-  options: Options
-): Promise<string> {
-  // Decrement depth
-  const newDepth = parseInt(options.depth) - 1;
-  const subTree = await parseDirectory(
-    path.join(dir, item),
-    prefix,
-    { ...options, depth: newDepth.toString() } // Pass the decremented depth
-  );
-
-  return subTree;
-}
-
-async function parseDirectory(
-  dir: string,
-  prefix = '',
-  options: Options
-): Promise<string> {
-  let tree = '';
-
-  const items = await getDirectoryItems(dir, options);
-
-  for (let i = 0; i < items.length; i++) {
-    const item = items[i]!;
-
-    if (shouldIgnoreItem(item, options)) continue;
-    if (isIgnoredDirectory(item)) continue;
-
-    const branch = getBranch(options);
-    const isDir = await isDirectory(item, dir);
-
-    tree +=
-      prefix +
-      (i === items.length - 1 ? getLeaf(options) : branch) +
-      item +
-      '\n';
-
-    if (isDir && parseInt(options.depth) > 0) {
-      const subPrefix =
-        prefix +
-        (i === items.length - 1
-          ? '    '
-          : options.style === 'arrows'
-          ? '│   '
-          : '|   ');
-      tree += await parseSubdirectory(dir, item, subPrefix, options);
-    }
+  depth: number,
+  matchers: Matcher[],
+  options: TreeOptions,
+  lines: string[]
+): Promise<void> {
+  let entries: Entry[];
+  try {
+    entries = await readEntries(dir);
+  } catch {
+    // Unreadable subfolders (permissions, broken links) are listed but left empty
+    return;
   }
 
-  return tree;
+  const own = options.gitignore ? await readGitignore(dir) : null;
+  const active = own ? [...matchers, own] : matchers;
+  // Filter before drawing, so the last visible entry gets the └── connector
+  const visible = sortEntries(
+    entries.filter((entry) => isVisible(dir, entry, active, options)),
+    options.dirsFirst
+  );
+  const { branch, leaf, pipe, space } = connectors(options.style);
+
+  for (const [i, entry] of visible.entries()) {
+    const isLast = i === visible.length - 1;
+    lines.push(prefix + (isLast ? leaf : branch) + entry.name);
+
+    if (entry.isDirectory && depth > 0) {
+      await renderDirectory(
+        path.join(dir, entry.name),
+        prefix + (isLast ? space : pipe),
+        depth - 1,
+        active,
+        options,
+        lines
+      );
+    }
+  }
 }
 
-export async function generateAsciiTree(options: Options): Promise<string> {
-  const asciiTree = await parseDirectory(currentDirectory, '', options);
+/** The tree for `root`, starting with the folder's own name */
+export async function generateAsciiTree(root: string, options: TreeOptions): Promise<string> {
+  const resolved = path.resolve(root);
+  const matchers = options.gitignore ? await readParentGitignores(resolved) : [];
+  if (options.ignore.length > 0) matchers.push(createMatcher(resolved, options.ignore));
 
-  return asciiTree;
+  const lines = [path.basename(resolved) || resolved];
+  await renderDirectory(resolved, '', options.depth, matchers, options, lines);
+
+  return lines.join('\n');
 }

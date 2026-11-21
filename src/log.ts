@@ -1,14 +1,13 @@
 import chalk from 'chalk';
 import logSymbols from 'log-symbols';
 
-const _log = console.log;
+// Everything except the tree goes to stderr, so stdout is only ever the tree
+// and `asciifolders > tree.txt` or `asciifolders | pbcopy` just work
+const write = (message: string) => console.error(message);
 
 export const log = {
-  normal: (message: string) => _log(message),
-  info: (message: string) => _log(`${logSymbols.info} ${message}`),
-  success: (message: string) => _log(`${logSymbols.success} ${message}`),
-  error: (message: string) =>
-    _log(`${logSymbols.error} ${chalk.red(`${message}`)}`),
-  warning: (message: string) =>
-    _log(`${logSymbols.warning} ${chalk.yellow(`${message}`)}`),
+  info: (message: string) => write(`${logSymbols.info} ${message}`),
+  success: (message: string) => write(`${logSymbols.success} ${message}`),
+  error: (message: string) => write(`${logSymbols.error} ${chalk.red(message)}`),
+  warning: (message: string) => write(`${logSymbols.warning} ${chalk.yellow(message)}`),
 };
