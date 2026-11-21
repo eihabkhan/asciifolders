@@ -167,7 +167,7 @@ Contributions are welcome. Read the [contributing guidelines](CONTRIBUTING.md) f
 
 **Eihab Khan**
 
-- Portfolio: [eihabkhan.com](https://eihabkhan.com)
+- Portfolio: [eihab.me](https://eihab.me)
 - GitHub: [@eihabkhan](https://github.com/eihabkhan)
 - X: [@itseihab](https://x.com/itseihab)
 
