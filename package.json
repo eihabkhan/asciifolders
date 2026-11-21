@@ -18,7 +18,8 @@
     "test": "pnpm build && node --test test/cli.test.mjs",
     "build": "bun build --target=node src/bin.ts --platform=node --outfile=dist/bin.js --format=esm",
     "dev": "tsc -w",
-    "release": "pnpm build && pnpm bumpp package.json --commit \"chore: Release v\" --push --tag"
+    "prepublishOnly": "pnpm test",
+    "release": "bumpp package.json --commit \"chore: Release v\" --push --tag && npm publish"
   },
   "repository": {
     "type": "git",
