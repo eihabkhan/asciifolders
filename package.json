@@ -9,7 +9,7 @@
   },
   "type": "module",
   "bin": {
-    "asciifolders": "./dist/bin.js"
+    "asciifolders": "dist/bin.js"
   },
   "files": [
     "dist"
